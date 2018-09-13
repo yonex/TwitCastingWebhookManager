@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <h1><img src="{{ url_for("static", filename="sunglasses.png") }}" class="icon"> TwitCasting Webhoook Manager</h1>
+
+    <form class="form-inline" method="post" action="{{ url_for("add") }}">
+        <label class="sr-only" for="inlineFormInputName2">user_id</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
+               placeholder="screen_id or user_id" name="user_id">
+        <button type="submit" class="btn btn-primary mb-2">追加する</button>
+    </form>
+
+    <table class="table table-sm table-striped">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">screen_id</th>
+            <th scope="col">user_id</th>
+            <th scope="col">name</th>
+            <th scope="col">remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for webhook in webhooks %}
+            <tr>
+                <th scope="row"><img src="{{ webhook.user.image }}" class="rounded icon"></th>
+                <td>{{ webhook.user.screen_id }}</td>
+                <td>{{ webhook.user.id }}</td>
+                <td>{{ webhook.user.name }}</td>
+                <td>
+                    <form method="post" action="{{ url_for("remove", user_id=webhook.user.id) }}">
+                        <button type="submit" class="btn btn-danger btn-sm">削除する</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

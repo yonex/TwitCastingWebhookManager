@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  flask:
+    build: ./
+    ports:
+      - '${PUBLISH_PORT:-5000}:5000'
+    volumes:
+      - ./:/app
+    environment:
+      - FLASK_ENV
+      - CLIENT_ID
+      - CLIENT_SECRET
